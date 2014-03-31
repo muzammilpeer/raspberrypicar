@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+    
+     <ImageButton
+         android:id="@+id/btnLeftMenu"
+         style="@style/Widget.CustomSearch.ActionButton"
+         android:layout_width="wrap_content"
+         android:layout_height="wrap_content"
+         android:layout_gravity="start"
+         android:clickable="true"
+         android:gravity="start"
+         android:src="@drawable/ic_action_bulleted_list" />
+
+    <ImageButton
+        android:id="@+id/btnRightMenu"
+        style="@style/Widget.CustomSearch.ActionButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:clickable="true"
+        android:src="@drawable/ic_action_settings" />
+
+    <ImageButton
+        android:id="@+id/btnConnectMenu"
+        style="@style/Widget.CustomSearch.ActionButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_toLeftOf="@+id/btnRightMenu"
+        android:src="@android:drawable/presence_online" />
+
+    <ImageButton
+        android:id="@+id/btnRefreshMenu"
+        style="@style/Widget.CustomSearch.ActionButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_toLeftOf="@+id/btnConnectMenu"
+        android:src="@android:drawable/ic_popup_sync" />
+
+    <TextView
+        android:id="@+id/actionbar_title"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_alignBottom="@+id/btnRefreshMenu"
+        android:layout_alignParentTop="true"
+        android:layout_toLeftOf="@+id/btnRefreshMenu"
+        android:layout_toRightOf="@+id/btnLeftMenu"
+        android:layout_weight="6.53"
+        android:gravity="center"
+        android:text="@string/app_name"
+        android:textAlignment="gravity"
+        android:textSize="@dimen/heading_size"
+        android:textStyle="bold" />
+
+</RelativeLayout>
