@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">RaspberryPiCar</string>
+    <string name="action_settings">Settings</string>
+    <string name="hello_world">Hello world!</string>
+   <string name="custom_speedometer">Custom Speedometer!</string>
+   <string name="move_needle">Change Needle Value</string>   
+    <string name="title_activity_buy_voucher">BuyVoucherActivity</string>
+    <string name="title_activity_pay_bill">PayUtilityBillActivity</string>
+    <string name="title_trans_history">TransactionHistoryActivity</string>
+    <string name="title_activity_fund_transfer">FundTransferActivity</string>
+    <string name="heading_buy_voucher">Buy e-Voucher</string>
+    <string name="heading_pay_bill">Pay Utility Bill(s)</string>
+    <string name="heading_trans_history">Transaction History</string>
+    <string name="heading_transfer_balance">Transfer Balance</string>
+    
+    <string name="heading_buy_voucher_mobile_no">Mobile # : </string>
+    <string name="heading_select_vendor">Select Vendor : </string>
+    <string name="heading_consumer_no">Consumer # : </string>
+    <string name="heading_user_name">User Name : </string>
+    <string name="heading_amount">Amount : </string>
+    <string name="title_activity_base">BaseActivity</string>
+    <string name="title_activity_login">Sign In</string>
+    <string name="title_activity_account_settings">Account Settings</string>
+    <string name="title_activity_forgot_password">Forgot Password</string>
+	<string name="title_activity_join_oneload">Join One Load</string>
+    
+    <string name="pull_to_refresh_pull_label">Pull to refresh...</string>
+    <string name="pull_to_refresh_release_label">Release to refresh...</string>
+    <string name="pull_to_refresh_refreshing_label">Loading...</string>
+    <string name="pull_to_refresh_tap_label">Tap to refresh...</string>
+    
+   <string name="lblBtnConnect">Connect RC Car</string>
+    <string name="dummy_content">DUMMY\nCONTENT</string>
+    <string name="lblBtnLeft">&lt;</string>
+    <string name="lblBtnRight">&gt;</string>
+    <string name="lblBtnForward">^</string>
+    <string name="lblBtnReverse">v</string>
+    <string name="lblBtnLeftIndicator">&lt;&lt;</string>
+    <string name="lblBtnRightIndicator">&gt;&gt;</string>    
+    <string name="tagBtnLeft">1</string>
+    <string name="tagBtnRight">2</string>
+    <string name="tagBtnForward">3</string>
+    <string name="tagBtnReverse">4</string>
+    <string name="tagBtnLeftIndicator">5</string>
+    <string name="tagBtnRightIndicator">6</string>     
+</resources>
