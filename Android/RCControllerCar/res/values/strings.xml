@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="sampleimg">ic_launcher.png</string>
+    <string name="app_name">RCControllerCar</string>
+    <string name="lblBtnConnect">Connect RC Car</string>
+    <string name="dummy_content">DUMMY\nCONTENT</string>
+    <string name="lblBtnLeft">&lt;</string>
+    <string name="lblBtnRight">&gt;</string>
+    <string name="lblBtnForward">^</string>
+    <string name="lblBtnReverse">v</string>
+    <string name="lblBtnLeftIndicator">&lt;&lt;</string>
+    <string name="lblBtnRightIndicator">&gt;&gt;</string>    
+    <string name="tagBtnLeft">1</string>
+    <string name="tagBtnRight">2</string>
+    <string name="tagBtnForward">3</string>
+    <string name="tagBtnReverse">4</string>
+    <string name="tagBtnLeftIndicator">5</string>
+    <string name="tagBtnRightIndicator">6</string>    
+    
+</resources>
