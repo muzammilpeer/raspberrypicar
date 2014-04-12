@@ -186,5 +186,7 @@ public class CarScanningService {
 	    
 	    return model;
 	}
+	
+	
 
 }

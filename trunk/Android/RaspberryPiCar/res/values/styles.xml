@@ -3,12 +3,16 @@
     <!--
         Base application theme, dependent on API level. This theme is replaced
         by AppBaseTheme from res/values-vXX/styles.xml on newer devices.
+
+
     -->
     <style name="AppBaseTheme" parent="android:Theme.Light">
         <!--
             Theme customizations available in newer API levels can go in
             res/values-vXX/styles.xml, while customizations related to
             backward-compatibility can go here.
+
+
         -->
     </style>
 
@@ -17,9 +21,7 @@
         <!-- All customizations that are NOT specific to a particular API-level can go here. -->
     </style>
 
-    
     <style name="NewDialog" parent="android:Theme.Light">
-        <item name="android:indeterminate">true</item>
         <item name="android:windowFrame">@null</item>
         <item name="android:windowBackground">@android:color/transparent</item>
         <item name="android:windowIsFloating">true</item>
@@ -40,15 +42,84 @@
         <item name="android:padding">10dp</item>
         <item name="android:textColor">@android:color/white</item>
     </style>
+   
+    <style name="OneLoad.Spinner" parent="android:Widget">
+         <item name="android:popupBackground">@drawable/bg_loginscreen</item>
+         <item name="android:background">@drawable/btn_dropdown</item>
+         <item name="android:clickable">true</item>
+          <item name="android:divider">#FDB920</item>
+         <item name="android:dividerHeight">2dp</item>        
+    </style>   
     <!-- ListView color -->
-   	<color name="dark_slate_gray">#2F4F4F</color>
-	<color name="gray_2">#AFAFAF</color>
-	<color name="gray_1">#C0C0C0</color>
-	<color name="black">#000000</color>
-	<color name="trans_gray_1">#80000000</color>
-		
-	<style name="Widget.CustomSearch.ActionButton" parent="Widget.Sherlock.Light.ActionButton">
+       <color name="dark_slate_gray">#2F4F4F</color>
+    <color name="gray_2">#AFAFAF</color>
+    <color name="gray_1">#C0C0C0</color>
+    <color name="black">#000000</color>
+    <color name="trans_gray_1">#80000000</color>
+    <color name="blue">#0000FF</color>
+    <color name="white">#FFFFFF</color>
+       
+    <color name="transparent">#00FFFFFF</color>
+    <color name="selectedRowColor">#FDB920</color>
+    <color name="normalRowColor">#7B1928</color>
+    <color name="seperatorRowColor">#F23A3A</color>
+    <color name="lineUsernameColor">#Fdb813</color>
+    <color name="linePasswordColor">#92278F</color>
+    <color name="menuBackgroundColor">#C83522</color>
+    <color name="rowSplitterColor">#E1D2AE</color>
+    <color name="backgroundColor">#D6594E</color>
+           
+       
+    <color name="tab_indicator">#84202e</color>
+           
+           
+                               
+    <style name="Widget.CustomSearch.ActionButton" parent="Widget.Sherlock.Light.ActionButton">
+    </style>   
+    <!--  Theming -->
+   
+  
+    <style name="OneLoad.ActionBar" parent="Theme.Sherlock.Light">
+        <item name="android:actionBarTabStyle">@style/OneLoad.ActionBar.Tab</item>
+        <item name="actionBarTabStyle">@style/OneLoad.ActionBar.Tab</item>
+        <item name="android:actionBarTabTextStyle">@style/OneLoad.ActionBar.TabText</item>
+        <item name="actionBarTabTextStyle">@style/OneLoad.ActionBar.TabText</item>
+         <item name="android:spinnerStyle">@style/OneLoad.Spinner</item>       
+       
     </style>
-    
-		    
+
+    <style name="OneLoad.ActionBar.Tab">
+        <item name="android:background">@drawable/selector_actionbar_tab</item>
+        <item name="android:gravity">center</item>
+        <item name="android:padding">10dp</item>
+    </style>
+   
+    <style name="OneLoad.ActionBar.TabText">
+        <item name="android:textColor">@color/actiontab_textcolor</item>
+        <item name="android:singleLine">true</item>
+       
+       
+    </style>   
+    <style name="button_default" parent="@android:style/Widget.Button">
+        <item name="android:background">@drawable/button_state</item>
+        <item name="android:textColor">@color/button_textcolor</item>   
+    </style> 
+   
+    <style name="btn_cancel" parent="@android:style/Widget.Button">
+        <item name="android:background">@drawable/btn_cancel_state</item>
+        <item name="android:textColor">@color/button_textcolor</item>    
+    </style>     
+    <style name="btn_close_big" parent="@android:style/Widget.Button">
+        <item name="android:background">@drawable/btn_close_big_state</item>
+        <item name="android:textColor">@color/button_textcolor</item>    
+    </style>     
+    <style name="btn_confirm" parent="@android:style/Widget.Button">
+        <item name="android:background">@drawable/btn_confirm_state</item>
+        <item name="android:textColor">@color/button_textcolor</item>    
+    </style>     
+    <style name="btn_popup_close" parent="@android:style/Widget.Button">
+        <item name="android:background">@drawable/btn_popup_close_state</item>
+        <item name="android:textColor">@color/button_textcolor</item>    
+    </style>     
+           
 </resources>

@@ -2,41 +2,65 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/bg_loginscreen"
     android:orientation="vertical" >
 
     <LinearLayout
-        android:orientation="horizontal"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" >
+        android:layout_height="wrap_content"
+        android:background="@color/selectedRowColor"
+        android:orientation="horizontal" >
 
         <TextView
             android:id="@+id/textView1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:gravity="start"
-            android:text="Scanning Raspberry Pi Car" />
+            android:text="Status : "
+            android:paddingLeft="20dp"
+            android:textColor="@color/white"
+            android:textSize="@dimen/heading_size" />
 
-        <Button
-            android:id="@+id/btnRefresh"
-            android:layout_width="wrap_content"
+        <TextView
+            android:id="@+id/tvScanStatus"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="end"
-            android:text="Refresh" />
+            android:text=" None "
+            android:textColor="@color/white"
+            android:textSize="@dimen/heading_size" />
         
     </LinearLayout>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_weight="1"
         android:orientation="vertical" >
+        
+	<RelativeLayout android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp" >
+        <ProgressBar
+            android:id="@+id/pbServerList"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:visibility="gone" />
+
+        <TextView
+            android:id="@+id/tvServerList"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="No Server found"
+            android:visibility="gone" />
 
         <ListView
             android:id="@+id/lvRaspberryPiCars"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:clickable="true" >
-
+            android:layout_height="wrap_content" >
         </ListView>
-
+    </RelativeLayout>
     </LinearLayout>
 
 </LinearLayout>

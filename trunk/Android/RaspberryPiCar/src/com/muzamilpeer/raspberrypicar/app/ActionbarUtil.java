@@ -5,6 +5,7 @@ import android.content.Context;
 import android.os.Build;
 import android.view.View;
 import android.widget.ImageButton;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.actionbarsherlock.app.ActionBar;
@@ -45,14 +46,24 @@ public class ActionbarUtil {
         if (isParent) {
             ((ImageButton)actionbarView.findViewById(R.id.btnLeftMenu)).setOnClickListener(listener);
             ((ImageButton)actionbarView.findViewById(R.id.btnRightMenu)).setOnClickListener(listener);
-            ((ImageButton)actionbarView.findViewById(R.id.btnConnectMenu)).setOnClickListener(listener);
-            ((ImageButton)actionbarView.findViewById(R.id.btnRefreshMenu)).setOnClickListener(listener);
         }
 
+    }
+    public void setRefreshButtonListener(View.OnClickListener listener) {
+        ((ImageButton)actionbarView.findViewById(R.id.btnRefreshMenu)).setOnClickListener(listener);
+    }
+    public void showLoader() {
+        ((ProgressBar)actionbarView.findViewById(R.id.pbLoading)).setVisibility(View.VISIBLE);
+    }
+    public void hideLoader() {
+        ((ProgressBar)actionbarView.findViewById(R.id.pbLoading)).setVisibility(View.GONE);
     }
 
     public void setTitle(String title) {
         ((TextView)actionbarView.findViewById(R.id.actionbar_title)).setText(title);
+    }
+    public void setCurrentItem(String count) {
+        ((TextView)actionbarView.findViewById(R.id.actionbar_counter)).setText(count);
     }
 
 }

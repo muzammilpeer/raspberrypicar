@@ -45,8 +45,16 @@ public class CarsListViewAdapter extends ArrayAdapter<ServerInfoModel> {
 			holder = (HistoryRowHolder) row.getTag();
 		}
 		ServerInfoModel item = (ServerInfoModel)data.get(position);
-		holder.txtRowIoT.setText(SystemConstants.isIoT ? "Internet" : "Intranet");
+		holder.txtRowIoT.setText(item.getNetworkType());
 		holder.txtRowServerIp.setText(item.getServerIP());
+		/*
+		if(item.isFound())
+		{
+			row.setBackgroundColor(context.getResources().getColor(R.color.normalRowColor));
+		}else {
+			row.setBackgroundColor(context.getResources().getColor(R.color.selectedRowColor));
+		}
+		*/
 		holder.txtRowServerPort.setText(item.getServerPort());
  		
 		//Bitmap bitmapIcon = BitmapFactory.decodeResource(this.getResources(), R.drawable.ic_launcher);

@@ -44,5 +44,6 @@
     <string name="tagBtnForward">3</string>
     <string name="tagBtnReverse">4</string>
     <string name="tagBtnLeftIndicator">5</string>
-    <string name="tagBtnRightIndicator">6</string>     
+    <string name="tagBtnRightIndicator">6</string>   
+    
 </resources>
