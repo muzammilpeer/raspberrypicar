@@ -2,6 +2,7 @@
 package com.muzamilpeer.raspberrypicar.app;
 
 import android.os.Bundle;
+import android.text.method.Touch;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -31,14 +32,34 @@ public class BaseActivity extends SlidingFragmentActivity {
         slidingMenu.setTouchModeAbove(SlidingMenu.TOUCHMODE_FULLSCREEN);
         slidingMenu.setMode(SlidingMenu.LEFT_RIGHT);
         slidingMenu.setSecondaryMenu(R.layout.right_menu_frame);
+        slidingMenu.setTouchModeAbove(SlidingMenu.TOUCHMODE_NONE);
         actionBarUtil = new ActionbarUtil(this);
         actionBarUtil.setup(true,mGlobal_OnClickListener);
-        
+    }
+    
+    public static void  setRefreshButtonListener(View.OnClickListener listener) {
+    	actionBarUtil.setRefreshButtonListener(listener);
+    }
+
+    public ActionbarUtil getActionBarUtil() {
+    	return actionBarUtil;
+    }
+    public static void showLoader() {
+    	actionBarUtil.showLoader();
+    }
+    public static void hideLoader() {
+    	actionBarUtil.hideLoader();
     }
     
     public static void setActionBarTitle(String title) {
     	actionBarUtil.setTitle(title);
     }
+    
+    public static void setCurrentItem(String count) {
+    	actionBarUtil.setCurrentItem(count);
+    }
+    
+    
     
     //Global On click listener for all views
     final OnClickListener mGlobal_OnClickListener = new OnClickListener() {

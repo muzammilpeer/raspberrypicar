@@ -1,9 +1,10 @@
 package com.muzamilpeer.raspberrypicar.app.scan;
 
 import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.Map;
+import java.util.Map.Entry;
 
-import android.content.Intent;
-import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -11,142 +12,221 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.Button;
-import android.widget.ListView;
 import android.widget.AdapterView.OnItemClickListener;
+import android.widget.ListView;
+import android.widget.ProgressBar;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.actionbarsherlock.app.ActionBar;
 import com.actionbarsherlock.app.SherlockFragment;
 import com.muzamilpeer.raspberrypicar.R;
+import com.muzamilpeer.raspberrypicar.app.DashboardActivity;
 import com.muzamilpeer.raspberrypicar.app.common.CommonActions;
 import com.muzamilpeer.raspberrypicar.app.common.SystemConstants;
+import com.muzamilpeer.raspberrypicar.app.manualdrive.ManualDriveFragment;
 import com.muzamilpeer.raspberrypicar.model.ServerInfoModel;
-import com.muzamilpeer.raspberrypicar.model.ServerListModel;
 import com.muzamilpeer.raspberrypicar.networklayer.RaspberryPiNetworkService;
 import com.muzamilpeer.raspberrypicar.networklayer.ResponseListener;
 
-public class ScanCarFragment extends SherlockFragment implements ResponseListener {
+public class ScanCarFragment extends SherlockFragment implements
+		ResponseListener {
 
-    View mainView;
-    ActionBar actionBar;
-    CommonActions ca;
+	View mainView;
+	ActionBar actionBar;
+	CommonActions ca;
 	ArrayList<Object> listProviderArray = new ArrayList<Object>();
-	
-	Button btnRefresh;
+
+	TextView tvScanStatus,tvServerList;
 	RaspberryPiNetworkService carService;
+	ProgressBar pbServerList;
+
+	ListView serverListView;
+	ArrayList<ServerInfoModel> serverListDataSource;
+	CarsListViewAdapter serverListAdaptor;
 	
-    ListView serverListView;
-    ArrayList<ServerInfoModel> serverListDataSource;
-    CarsListViewAdapter serverListAdaptor;
-
-
+	private void getServersfromCache() {
+		serverListDataSource.clear();
+		Iterator<Entry<String, ServerInfoModel>> iter = SystemConstants.cacheServerListModel.entrySet().iterator();
+		 
+		while (iter.hasNext()) {
+			Map.Entry<String, ServerInfoModel> mEntry = (Map.Entry<String, ServerInfoModel>) iter.next();
+			serverListDataSource.add(mEntry.getValue());
+		}
+		serverListAdaptor.notifyDataSetChanged();
+	}
 	
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+	@Override
+	public View onCreateView(LayoutInflater inflater, ViewGroup container,
+			Bundle savedInstanceState) {
 
-        super.onCreateView(inflater, container, savedInstanceState);
-        
-        mainView = inflater.inflate(R.layout.activity_scancar, null);
-        
+		super.onCreateView(inflater, container, savedInstanceState);
 
-        if (savedInstanceState == null) {
-            initViews();
-            initObjects();
-            initListeners();
-        	this.carService.callScanningService();
-           // getSherlockActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
-        }
+		mainView = inflater.inflate(R.layout.activity_scancar, null);
 
-        return mainView;
-    }
-    private void initViews() {
-    	btnRefresh = (Button) mainView.findViewById(R.id.btnRefresh);
-    	serverListView = (ListView)mainView.findViewById(R.id.lvRaspberryPiCars);
+		if (savedInstanceState == null) {
+			initViews();
+			initObjects();
+			initListeners();
+			Log.e("First time", "First Time here ")	;
+			if(SystemConstants.cacheServerListModel.size() > 0)  {
+				getServersfromCache();
+				
+			}
+		}else {
+		Log.e("Second time", "Second Time here ")	;
+		}
 
-    	
-    }
-    private void initListeners() {
-    	btnRefresh.setOnClickListener(mGlobal_OnClickListener);
-    	serverListView.setOnItemClickListener(new OnItemClickListener() {
+		return mainView;
+	}
+
+	private void initViews() {
+		tvScanStatus = (TextView) mainView.findViewById(R.id.tvScanStatus);
+		tvServerList = (TextView) mainView.findViewById(R.id.tvServerList);
+		pbServerList = (ProgressBar) mainView.findViewById(R.id.pbServerList);
+		serverListView = (ListView) mainView
+				.findViewById(R.id.lvRaspberryPiCars);
+
+	}
+
+	private void initListeners() {
+		//tvScanStatus.setOnClickListener(mGlobal_OnClickListener);
+		DashboardActivity.setRefreshButtonListener(mGlobal_OnClickListener);
+
+		serverListView.setOnItemClickListener(new OnItemClickListener() {
 			public void onItemClick(AdapterView<?> parent, View view,
 					int position, long id) {
-			    //Load Respective Screen on Main Fragment View
-				//ca.saveUserPreferences("selectedServer", serverListDataSource.get(position));
-			  //  Intent intent = new Intent(ScanNetwork.this, MainControllerActivity.class);
-			  //  startActivity(intent);
+				 //Load Respective Screen on Main Fragment View
+				 //ca.saveUserPreferences("selectedServer",
+				ServerInfoModel model =  serverListDataSource.get(position);
+				if(model.isFound()) {
+					ca.saveUserPreferences(SystemConstants.SHARED_SERVER_IP, model.getServerIP());
+					ca.saveUserPreferences(SystemConstants.SHARED_SERVER_PORT, model.getServerPort());
+					
+					DashboardActivity.refreshMainViewByNew(new ManualDriveFragment());
+				}else {
+					Toast.makeText(getSherlockActivity(), "No connection available at this machine", 1).show();
+					
+				}
+		
 			}
-		});    	  
+		});
 
-    }
+	}
 
-    private void initObjects() {
-    	this.carService = new RaspberryPiNetworkService(getActivity());
-    	this.carService.setResponseListener(this);
+	private void initObjects() {
+		this.carService = new RaspberryPiNetworkService(getActivity());
+		this.carService.setResponseListener(this);
 
-    	serverListDataSource = new ArrayList<ServerInfoModel>();
-        
-		//ListView Adaptor
-    	serverListAdaptor = new CarsListViewAdapter(mainView.getContext(), R.layout.cars_row, serverListDataSource);
+		serverListDataSource = new ArrayList<ServerInfoModel>();
+
+		// ListView Adaptor
+		serverListAdaptor = new CarsListViewAdapter(mainView.getContext(),
+				R.layout.cars_row, serverListDataSource);
 		serverListView.setAdapter(serverListAdaptor);
 
-    	//Common View 
-    	ca = new CommonActions(getActivity());
-    }
-    
-    private boolean validation()
-    {
-    	boolean isValid = true;
-    	return isValid;
-    }
-    //Global On click listener for all views
-    final OnClickListener mGlobal_OnClickListener = new OnClickListener() {
-        public void onClick(final View v) {
-            switch(v.getId()) {
-                case R.id.btnRefresh:
-                {
-                    ActionBar actionBar = getSherlockActivity().getSupportActionBar();
-                    if(actionBar.isShowing()) {
-                        actionBar.hide();
-                    	
-                    }else {
-                        actionBar.show();
-                    }
-                    
-                    /*
-						setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
-                     * */
-                }
-                break;
-            }
-        }
-    };
+		// Common View
+		ca = new CommonActions(getActivity());
+		
+	}
 
-    @Override
-    public void onSaveInstanceState(Bundle outState) {
-        super.onSaveInstanceState(outState);
-        outState.putBoolean("isNew", false);
-    }
+	private boolean validation() {
+		boolean isValid = true;
+		return isValid;
+	}
 
-    @Override
-    public void onDetach() {
-        super.onDetach();
-    }
+	// Global On click listener for all views
+	final OnClickListener mGlobal_OnClickListener = new OnClickListener() {
+		public void onClick(final View v) {
+			switch (v.getId()) {
+			/*
+			case R.id.btnRefresh: {
+				 * ActionBar actionBar = getSherlockActivity()
+				 * .getSupportActionBar(); if (actionBar.isShowing()) {
+				 * actionBar.hide();
+				 * 
+				 * } else { actionBar.show(); }
+				serverListDataSource.clear();
+				serverListAdaptor.notifyDataSetChanged();
+				
+				carService.callScanningService();
+
+				 * setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
+				 * );
+			}
+							 */
+
+			case R.id.btnRefreshMenu: {
+				serverListDataSource.clear();
+				SystemConstants.cacheServerListModel.clear();
+				serverListAdaptor.notifyDataSetChanged();
+				tvScanStatus.setText("Scanning");
+				
+				pbServerList.setVisibility(View.VISIBLE);
+				tvServerList.setText("Scanning");
+				tvServerList.setVisibility(View.VISIBLE);
+				serverListView.setVisibility(View.GONE);
+				if(!carService.isRunning()) {
+					carService.callScanningService();
+				}else {
+					tvScanStatus.setText("Applicaiton is already scanning Please wait...");
+				}
+			}
+			
+				break;
+			}
+		}
+	};
+
+	@Override
+	public void onSaveInstanceState(Bundle outState) {
+		super.onSaveInstanceState(outState);
+		outState.putBoolean("isNew", false);
+	}
+
+	@Override
+	public void onDetach() {
+		super.onDetach();
+	}
+
 	@Override
 	public void onResponse(int serviceId, Object responseObj) {
-	       switch (serviceId) {
+		if (responseObj != null && this != null) {
+			switch (serviceId) {
+			case SystemConstants.RESPONSE_SCANNING:
+				if (responseObj != null) {
 
-	        case SystemConstants.RESPONSE_SCANNING:
-	            if (responseObj != null) {
-	            	SystemConstants.cacheServerListModel = (ServerListModel)responseObj;
-	            	serverListDataSource.clear();
-	            	serverListDataSource.addAll(((ServerListModel)responseObj).getServers());
-	               	serverListAdaptor.notifyDataSetChanged();
-	            }
-	        break;
-	        
-	        default:
-            break;
-	    }
+					ServerInfoModel object = (ServerInfoModel) responseObj;
+					DashboardActivity.setCurrentItem(carService.getExecutedTasksCount()+"/254");
+					if(object.isFound()) {
+						pbServerList.setVisibility(View.GONE);
+						tvServerList.setText("Found");
+						tvServerList.setVisibility(View.GONE);
+						serverListView.setVisibility(View.VISIBLE);
+
+						serverListDataSource.add(object);
+						SystemConstants.cacheServerListModel.put(object.getServerIP(), object);
+						// SystemConstants.cacheServerListModel.add((ServerInfoModel)
+						// responseObj);
+						serverListAdaptor.notifyDataSetChanged();
+					}
+					if(object.getTaskId()  == 254) {
+						tvScanStatus.setText("Done");
+						DashboardActivity.hideLoader();
+						carService.stopScanning();
+						if(serverListDataSource.size() < 1) {
+							pbServerList.setVisibility(View.GONE);
+							tvServerList.setText("No Server Found");
+							tvServerList.setVisibility(View.VISIBLE);
+							serverListView.setVisibility(View.GONE);
+						}
+					}
+				}
+				break;
+
+			default:
+				break;
+			}
+		}
 	}
 }

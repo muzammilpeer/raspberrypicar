@@ -1,11 +1,15 @@
 package com.muzamilpeer.raspberrypicar.app.common;
 
-import com.muzamilpeer.raspberrypicar.model.ServerListModel;
+import java.util.HashMap;
+
+import com.muzamilpeer.raspberrypicar.model.ServerInfoModel;
 
 
 public class SystemConstants {
 
 	public static final String EMPTY_STRING = "";
+	public static final String SHARED_SERVER_IP = "serverip";
+	public static final String SHARED_SERVER_PORT = "port";
 	
     public static final String SHARED_ALTER_PHONE_NO = "altPhoneNo";
     public static final String SHARED_FULL_NAME = "fullName";
@@ -46,12 +50,13 @@ public class SystemConstants {
     
     public static String ANDROID_IP_ADDRESS = "";
     
-    public static ServerListModel cacheServerListModel = null;
+    public static HashMap<String,ServerInfoModel> cacheServerListModel = new HashMap<String, ServerInfoModel>();
     
     public static final int RESPONSE_LOGIN = 1;
     public static final int RESPONSE_SCANNING = 2;
-    public static final int RESPONSE_CONNECTED = 3;
-    public static final int RESPONSE_DISCONNECTED = 4;
-    public static final int RESPONSE_RECONNECT = 5;
+    public static final int RESPONSE_SCANNED = 3;
+    public static final int RESPONSE_CONNECTED = 4;
+    public static final int RESPONSE_DISCONNECTED = 5;
+    public static final int RESPONSE_RECONNECT = 6;
 
 }

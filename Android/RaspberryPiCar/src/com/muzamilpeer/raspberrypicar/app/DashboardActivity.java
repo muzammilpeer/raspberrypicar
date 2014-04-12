@@ -7,6 +7,9 @@ import android.os.Handler;
 import android.os.SystemClock;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.text.GetChars;
+import android.view.View;
+import android.widget.ProgressBar;
 
 import com.actionbarsherlock.app.SherlockFragment;
 import com.muzamilpeer.raspberrypicar.R;
@@ -42,6 +45,9 @@ public class DashboardActivity extends BaseActivity {
         // TODO Auto-generated method stub
         super.onSaveInstanceState(outState);
     }
+
+
+    
     /*
     public static void refreshMainViewByNew(SherlockFragment fragment)
     {
@@ -74,6 +80,8 @@ public class DashboardActivity extends BaseActivity {
     	new onFriendAddedAsyncTask().execute(name);
     }
     */
+    
+    
     public static void refreshMainViewByNew(SherlockFragment fragment)
     {
 

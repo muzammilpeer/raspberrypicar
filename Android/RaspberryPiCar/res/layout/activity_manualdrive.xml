@@ -16,19 +16,6 @@
         android:width="75dp" />
 
     <ImageButton
-        android:src="@drawable/ic_launcher"
-        android:id="@+id/btnRight"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerVertical="true"
-        android:layout_marginLeft="36dp"
-        android:layout_toRightOf="@+id/btnReverse"
-        android:height="75dp"
-        android:tag="@string/tagBtnRight"
-        android:width="75dp" />
-
-    <ImageButton
-        android:src="@drawable/ic_launcher"
         android:id="@+id/btnLeft"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -37,11 +24,11 @@
         android:layout_alignParentLeft="true"
         android:layout_marginLeft="25dp"
         android:height="75dp"
+        android:background="@drawable/btn_left"
         android:tag="@string/tagBtnLeft"
         android:width="75dp" />
 
     <ImageButton
-        android:src="@drawable/ic_launcher"
         android:id="@+id/btnReverse"
         style="?android:attr/buttonStyleSmall"
         android:layout_width="wrap_content"
@@ -49,12 +36,12 @@
         android:layout_alignLeft="@+id/btnForward"
         android:layout_below="@+id/btnLeft"
         android:layout_marginTop="23dp"
+        android:background="@drawable/btn_reverse"
         android:height="75dp"
         android:tag="@string/tagBtnReverse"
         android:width="75dp" />
 
     <ImageButton
-        android:src="@drawable/ic_launcher"
         android:id="@+id/btnForward"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -62,6 +49,7 @@
         android:layout_marginBottom="16dp"
         android:layout_marginLeft="36dp"
         android:layout_toRightOf="@+id/btnLeft"
+        android:background="@drawable/btn_forward"
         android:height="75dp"
         android:tag="@string/tagBtnForward"
         android:width="75dp" />
@@ -72,8 +60,8 @@
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
+        android:background="@drawable/btn_left"
         android:height="75dp"
-        android:src="@drawable/ic_launcher"
         android:tag="@string/tagBtnLeftIndicator"
         android:width="75dp" />
 
@@ -84,8 +72,8 @@
         android:layout_alignLeft="@+id/btnRight"
         android:layout_alignParentTop="true"
         android:layout_marginLeft="30dp"
+        android:background="@drawable/btn_right"
         android:height="75dp"
-        android:src="@drawable/ic_launcher"
         android:tag="@string/tagBtnRightIndicator"
         android:width="75dp" />
 
@@ -145,5 +133,17 @@
         android:layout_centerVertical="true"
         android:text="Distance : "
         android:textAppearance="?android:attr/textAppearanceMedium" />
+
+    <ImageButton
+        android:id="@+id/btnRight"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="26dp"
+        android:layout_toRightOf="@+id/btnForward"
+        android:background="@drawable/btn_right"
+        android:height="75dp"
+        android:tag="@string/tagBtnRight"
+        android:width="75dp" />
 
 </RelativeLayout>
