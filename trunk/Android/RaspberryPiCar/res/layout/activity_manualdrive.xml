@@ -6,14 +6,13 @@
     tools:context=".MainControllerActivity" >
 
     <ImageButton
-        android:src="@drawable/ic_launcher"
-        android:id="@+id/btnSetting"
+        android:id="@+id/btnConnectDisconnect"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
         android:layout_alignParentTop="true"
-        android:height="75dp"
-        android:width="75dp" />
+        android:src="@android:drawable/presence_online"
+		/>
 
     <ImageButton
         android:id="@+id/btnLeft"
@@ -145,5 +144,13 @@
         android:height="75dp"
         android:tag="@string/tagBtnRight"
         android:width="75dp" />
+
+    <Button
+        android:id="@+id/btnShutdown"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/btnRight"
+        android:text="Shutdown" />
 
 </RelativeLayout>

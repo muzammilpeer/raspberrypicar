@@ -6,7 +6,17 @@ import com.muzamilpeer.raspberrypicar.model.ServerInfoModel;
 
 
 public class SystemConstants {
-
+	public static final int COMMAND_SCAN_NETWORK = 0;
+	public static final int COMMAND_CONNECT_SERVER = 1;
+	public static final int COMMAND_DISCONNECT_SERVER = 2;
+	public static final int COMMAND_MOVE = 3;
+	
+	public static final String KEY_COMMAND = "command";
+	public static final String KEY_SERVER_IP = "server_ip";
+	public static final String KEY_SERVER_PORT = "server_port";
+	public static final String KEY_MOVE= "command";
+	public static final String KEY_TAG = "tag";
+	
 	public static final String EMPTY_STRING = "";
 	public static final String SHARED_SERVER_IP = "serverip";
 	public static final String SHARED_SERVER_PORT = "port";
