@@ -1,10 +1,13 @@
 package com.muzamilpeer.raspberrypicar.app.scan;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.Map.Entry;
 
+import android.content.Context;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -23,15 +26,23 @@ import com.actionbarsherlock.app.SherlockFragment;
 import com.muzamilpeer.raspberrypicar.R;
 import com.muzamilpeer.raspberrypicar.app.DashboardActivity;
 import com.muzamilpeer.raspberrypicar.app.common.CommonActions;
+import com.muzamilpeer.raspberrypicar.app.common.L;
+import com.muzamilpeer.raspberrypicar.app.common.MyLog;
 import com.muzamilpeer.raspberrypicar.app.common.SystemConstants;
 import com.muzamilpeer.raspberrypicar.app.manualdrive.ManualDriveFragment;
+import com.muzamilpeer.raspberrypicar.dblayer.DBAccess;
+import com.muzamilpeer.raspberrypicar.dblayer.DatabaseHelper;
+import com.muzamilpeer.raspberrypicar.dblayer.DatabaseManager;
+import com.muzamilpeer.raspberrypicar.dblayer.QueryExecutor;
+import com.muzamilpeer.raspberrypicar.dbmodel.DBServer;
 import com.muzamilpeer.raspberrypicar.model.ServerInfoModel;
 import com.muzamilpeer.raspberrypicar.networklayer.RaspberryPiNetworkService;
 import com.muzamilpeer.raspberrypicar.networklayer.ResponseListener;
 
 public class ScanCarFragment extends SherlockFragment implements
 		ResponseListener {
-
+	
+	Context context;
 	View mainView;
 	ActionBar actionBar;
 	CommonActions ca;
@@ -55,6 +66,40 @@ public class ScanCarFragment extends SherlockFragment implements
 		}
 		serverListAdaptor.notifyDataSetChanged();
 	}
+	protected void fetchRecord() throws Exception {
+		L.LOG_TAG = "database";
+		DatabaseManager.initializeInstance(new DatabaseHelper(context));
+
+		L.e("Select  record");
+
+		DatabaseManager.getInstance().executeQuery(new QueryExecutor() {
+			@Override
+			public void run(SQLiteDatabase database) {
+				
+				DBServer model = new DBServer();
+
+				Map<String, String> map = new HashMap<String, String>();
+				
+				
+				ArrayList<Object> response =  new DBAccess(database, context)
+						.selectAll(map, model);
+				
+				for (int i = 0; i < response.size(); i++) {
+					DBServer obj = (DBServer)response.get(i);
+					ServerInfoModel modelObject = new ServerInfoModel();
+					modelObject.setExceptionMessage("");
+					modelObject.setFound(true);
+					modelObject.setNetworkType("net");
+					modelObject.setServerIP(obj.getServer_ip());
+					modelObject.setServerPort(obj.getServer_port());
+					modelObject.setTaskId(0);
+					serverListDataSource.add(modelObject);
+				}
+//				serverListAdaptor.notifyDataSetChanged();
+				L.e("Select response"+ response);
+			}
+		});
+	}	
 	
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -64,19 +109,21 @@ public class ScanCarFragment extends SherlockFragment implements
 
 		mainView = inflater.inflate(R.layout.activity_scancar, null);
 
-		if (savedInstanceState == null) {
 			initViews();
 			initObjects();
 			initListeners();
-			Log.e("First time", "First Time here ")	;
-			if(SystemConstants.cacheServerListModel.size() > 0)  {
-				getServersfromCache();
-				
-			}
-		}else {
-		Log.e("Second time", "Second Time here ")	;
-		}
-
+			try {
+				fetchRecord();
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				MyLog.e("Error in Fetching", e.getMessage());
+			}			
+			
+//			Log.e("First time", "First Time here ")	;
+//			if(SystemConstants.cacheServerListModel.size() > 0)  {
+//				getServersfromCache();
+//				
+//			}
 		return mainView;
 	}
 
@@ -113,11 +160,13 @@ public class ScanCarFragment extends SherlockFragment implements
 		});
 
 	}
+	
 
 	private void initObjects() {
+		this.context = getSherlockActivity().getApplicationContext();
 		this.carService = new RaspberryPiNetworkService(getActivity());
 		this.carService.setResponseListener(this);
-
+		
 		serverListDataSource = new ArrayList<ServerInfoModel>();
 
 		// ListView Adaptor
