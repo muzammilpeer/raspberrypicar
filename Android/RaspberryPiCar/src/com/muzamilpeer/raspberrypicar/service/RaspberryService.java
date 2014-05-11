@@ -15,17 +15,11 @@ import android.app.Activity;
 import android.app.Service;
 import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
-import android.os.AsyncTask;
 import android.os.Handler;
 import android.os.IBinder;
 import android.util.Log;
-import android.view.View;
-import android.widget.TextView;
 
-import com.muzamilpeer.raspberrypicar.R;
-import com.muzamilpeer.raspberrypicar.RaspberryPiApplication;
 import com.muzamilpeer.raspberrypicar.app.DashboardActivity;
-import com.muzamilpeer.raspberrypicar.app.common.CommonActions;
 import com.muzamilpeer.raspberrypicar.app.common.CommonUtils;
 import com.muzamilpeer.raspberrypicar.app.common.L;
 import com.muzamilpeer.raspberrypicar.app.common.MyLog;

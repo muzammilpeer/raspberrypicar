@@ -46,8 +46,8 @@ public class CommonActions {
 
     public CommonActions(Context activity) {
         // TODO Auto-generated constructor stub
-        this.currentActivity = (Activity)activity;
-        myProgressDialog = new MyProgressDialog(this.currentActivity);
+        //this.currentActivity = (Activity)activity;
+        myProgressDialog = new MyProgressDialog(activity);
 
         // trebuchet_MS_Bold = Typeface.createFromAsset(
         // currentActivity.getAssets(), "Trebuchet_MS_Bold.ttf");
