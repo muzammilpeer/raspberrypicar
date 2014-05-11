@@ -106,8 +106,9 @@ public class CommonUtils {
 		field.setAccessible(true);
 		try {
 			field.set(model, newValue);
-		} catch (IllegalAccessException | IllegalArgumentException e) {
-			// TODO Auto-generated catch block
+		} catch (IllegalAccessException e) {
+			e.printStackTrace();
+		} catch (IllegalArgumentException e ) {
 			e.printStackTrace();
 		}
 		return model;
