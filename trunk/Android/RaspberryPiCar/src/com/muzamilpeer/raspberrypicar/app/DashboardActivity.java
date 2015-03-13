@@ -1,16 +1,17 @@
 
 package com.muzamilpeer.raspberrypicar.app;
 
+import android.annotation.SuppressLint;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.StrictMode;
 import android.os.SystemClock;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.text.GetChars;
 import android.view.View;
 import android.widget.ProgressBar;
-
 import com.actionbarsherlock.app.SherlockFragment;
 import com.muzamilpeer.raspberrypicar.R;
 import com.muzamilpeer.raspberrypicar.app.accelerometerdrive.AccelerometerDriveFragment;
@@ -28,10 +29,16 @@ public class DashboardActivity extends BaseActivity {
 	
 	private static FragmentManager fragmentManager;
 
-    @Override
+    @SuppressLint("NewApi")
+	@Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.content_frame);
+//        if (android.os.Build.VERSION.SDK_INT > 9) {
+//            StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+//            StrictMode.setThreadPolicy(policy);
+//        }        
+        
         if (savedInstanceState == null) {
         	fragmentManager = getSupportFragmentManager();
         	
@@ -39,6 +46,8 @@ public class DashboardActivity extends BaseActivity {
         	fragmentManager.beginTransaction().replace(R.id.left_menu_frame, new LeftMenuFragment()).commit();
         	fragmentManager.beginTransaction().replace(R.id.right_menu_frame, new RightMenuFragment()).commit();
         }
+        
+        
     }
 
     protected void onSaveInstanceState(Bundle outState) {
@@ -48,7 +57,6 @@ public class DashboardActivity extends BaseActivity {
 
 
     
-    /*
     public static void refreshMainViewByNew(SherlockFragment fragment)
     {
     	if(fragment instanceof ScanCarFragment) {
@@ -77,54 +85,51 @@ public class DashboardActivity extends BaseActivity {
 	         .replace(R.id.content_frame, new SmartCamDriveFragment()).commit();
 		}
     	slidingMenu.showContent();
-    	new onFriendAddedAsyncTask().execute(name);
     }
-    */
     
-    
-    public static void refreshMainViewByNew(SherlockFragment fragment)
-    {
-
-        class ReplaceFragmentAsyncTask extends AsyncTask<String, Void, String> {
-            private final FragmentTransaction ft;
-            private final SherlockFragment fragment;
-            
-            ReplaceFragmentAsyncTask(FragmentTransaction ft,SherlockFragment fragment) {
-                this.ft = ft;
-                this.fragment = fragment;
-            }
-/*
-            @Override
-            protected void onPreExecute() {
-
-                new Handler().post(new Runnable() {
-                    public void run() {
-	                	ft.add(layoutId, fragment);
-                        ft.commit();
-                    }
-                });
-            }
-*/
-            @Override
-            protected void onPostExecute(String result) {
-                new Handler().post(new Runnable() {
-                    public void run() {
-	                    ft.replace(R.id.content_frame, fragment);
-	                    ft.commit();
-	                   	slidingMenu.showContent();
-                    }
-                });
-            }
-    		@Override
-    		protected String doInBackground(String... arg0) {
-    			// TODO Auto-generated method stub
-    			return null;
-    		}
-        }    	
-    	
-    	ReplaceFragmentAsyncTask task = new ReplaceFragmentAsyncTask(fragmentManager.beginTransaction(), fragment);
-    	task.execute("Replace Fragment");
-    }    
+//    public static void refreshMainViewByNew(SherlockFragment fragment)
+//    {
+//
+////        class ReplaceFragmentAsyncTask extends AsyncTask<String, Void, String> {
+////            private final FragmentTransaction ft;
+////            private final SherlockFragment fragment;
+////            
+////            ReplaceFragmentAsyncTask(FragmentTransaction ft,SherlockFragment fragment) {
+////                this.ft = ft;
+////                this.fragment = fragment;
+////            }
+/////*
+////            @Override
+////            protected void onPreExecute() {
+////
+////                new Handler().post(new Runnable() {
+////                    public void run() {
+////	                	ft.add(layoutId, fragment);
+////                        ft.commit();
+////                    }
+////                });
+////            }
+////*/
+////            @Override
+////            protected void onPostExecute(String result) {
+////                new Handler().post(new Runnable() {
+////                    public void run() {
+////	                    ft.replace(R.id.content_frame, fragment);
+////	                    ft.commit();
+////	                   	slidingMenu.showContent();
+////                    }
+////                });
+////            }
+////    		@Override
+////    		protected String doInBackground(String... arg0) {
+////    			// TODO Auto-generated method stub
+////    			return null;
+////    		}
+////        }    	
+////    	
+////    	ReplaceFragmentAsyncTask task = new ReplaceFragmentAsyncTask(fragmentManager.beginTransaction(), fragment);
+////    	task.execute("Replace Fragment");
+//    }    
     
 
 }
