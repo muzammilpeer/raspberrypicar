@@ -8,9 +8,10 @@ import java.io.OutputStreamWriter;
 import java.net.Socket;
 import java.net.UnknownHostException;
 import java.util.ArrayList;
-
+import android.annotation.SuppressLint;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.StrictMode;
 import android.os.SystemClock;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -22,7 +23,6 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
-
 import com.actionbarsherlock.app.ActionBar;
 import com.actionbarsherlock.app.SherlockFragment;
 import com.muzamilpeer.raspberrypicar.R;
@@ -49,6 +49,7 @@ public class ManualDriveFragment extends SherlockFragment implements
 	
 	Button btnShutdown;
 
+	@SuppressLint("NewApi")
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
@@ -59,9 +60,9 @@ public class ManualDriveFragment extends SherlockFragment implements
 		if (savedInstanceState == null) {
 			initViews();
 		}
-		//initObjects();
-		//initListeners();
-
+		initObjects();
+		initListeners();
+		
 		return mainView;
 	}
 
@@ -333,7 +334,7 @@ public class ManualDriveFragment extends SherlockFragment implements
 		}.execute();
 	}
 	
-	public void sendCommand(final View view, final String command) {
+/*	public void sendCommand(final View view, final String command) {
 
 		new AsyncTask<Void, Void, String>() {
 			private String exception = null;
@@ -382,6 +383,38 @@ public class ManualDriveFragment extends SherlockFragment implements
 			}
 
 		}.execute();
+	}
+*/	
+	public void sendCommand(final View view, final String command) {
+		String inMsg  = null;
+				try {
+					// send output msg
+					String outMsg = "msg:" + "Tag = " + view.getTag()
+							+ ", cmd = " + command;
+					// String outMsg = "msg:"+view.getTag() + ","+command;
+					out.write(outMsg);
+					out.flush();
+					Log.i("RcCarController", "sent: " + outMsg);
+					// accept server response
+					inMsg = in.readLine()
+							+ System.getProperty("line.separator");
+					Log.i("RcCarController", "received: " + inMsg);
+					// s.close();
+				} catch (UnknownHostException e) {
+					MyLog.e("UnknownHostException", e.getMessage());
+				} catch (IOException e) {
+					MyLog.e("IOException", e.getMessage());
+				}
+
+//				TextView tv = (TextView) mainView.findViewById(R.id.txtStatus);
+//				tv.setText(inMsg);
+//				if(exception != null) {
+//					CommonActions.showAlert(getSherlockActivity(),
+//							"IOException", exception);
+//					btnConnectDisconnect
+//					.setImageResource(android.R.drawable.presence_offline);
+//					isConnected = false;
+//				}
 	}
 	
 	public void liveServerStatus() {

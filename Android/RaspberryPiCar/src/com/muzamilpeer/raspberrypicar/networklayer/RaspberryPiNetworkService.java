@@ -195,10 +195,10 @@ public class RaspberryPiNetworkService {
 					in.close();
 
 				} catch (UnknownHostException e) {
-					MyLog.v("Unknown Host Exception ", e.getMessage());
+					MyLog.e("Unknown Host Exception ", e.getMessage());
 					model.setExceptionMessage(e.getMessage());
 				} catch (IOException e) {
-					MyLog.v("IOException", e.getMessage());
+					MyLog.e("IOException", e.getMessage());
 					model.setExceptionMessage(e.getMessage());
 				}
 				return model;
